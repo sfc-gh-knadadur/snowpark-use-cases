@@ -1,0 +1,21 @@
+spec:
+  containers:
+    - name: multimodal
+      image: sfseeurope-us-west-ccarrero-452.registry.snowflakecomputing.com/cc_containers/stable_diffusion/image_repo/rave_updated:latest
+      volumeMounts:
+      - name: models
+        mountPath: /app/rave
+      resources:
+        requests:
+          nvidia.com/gpu: 1
+        limits:
+          nvidia.com/gpu: 1
+  volumes:
+    - name: models
+      source: "@model_stage"
+  endpoints:
+    - name: jupy
+      port: 8888
+      public: true
+  networkPolicyConfig:
+      allowInternetEgress: true
