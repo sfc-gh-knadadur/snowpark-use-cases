@@ -14,7 +14,7 @@ NUM_CHUNKS = 3 # Num-chunks provided as context. Play with this to check how it 
 # service parameters
 CORTEX_SEARCH_DATABASE = "DB"
 CORTEX_SEARCH_SCHEMA = "SCHEMA"
-CORTEX_SEARCH_SERVICE = "DISNEY_SEARCH_SERVICE_CS"
+CORTEX_SEARCH_SERVICE = "D_SEARCH_SERVICE_CS"
 ######
 ######
 
