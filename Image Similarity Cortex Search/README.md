@@ -133,11 +133,12 @@ create service imagesimilarity
 Please Note : This has to be direct upload to the folder location. And this is a one time copy and you don't have to perform this again. If you suspend the service, the changes to the notebook will be persisted.
 
 CORTEX_SEARCH_AS_SERVICE is a PubPr feature[Aug 2024] and can be used to create search service on your snowflake table. Check the Demo_Notebook.ipynb to find out how to create the cortex search service.
+
 4. Run this command `ALTER STAGE MODEL_STAGE_SIMILARITY REFRESH;` on snowflake worksheet to make sure the images loaded to the internal stage is refreshed.
 5. Copy the streamlit.py script into a Streamlit in Snowflake to create the app.
-  a. Import Snowflake package while creating the app
-  b. Copy the steamlit.py script
-  c. Update the CORTEX_SEARCH_DATABASE
-  d. Update the CORTEX_SEARCH_SCHEMA
-  e. Run the App
+6. Import Snowflake package while creating the app
+7. Copy the steamlit.py script
+8. Update the CORTEX_SEARCH_DATABASE
+9. Update the CORTEX_SEARCH_SCHEMA
+10. Run the App
 
