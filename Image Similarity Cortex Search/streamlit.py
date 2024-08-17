@@ -29,7 +29,8 @@ session = get_active_session()
 root = Root(session)                         
 
 svc = root.databases[CORTEX_SEARCH_DATABASE].schemas[CORTEX_SEARCH_SCHEMA].cortex_search_services[CORTEX_SEARCH_SERVICE]
-   
+
+session.sql("ALTER STAGE model_stage_similarity REFRESH").collect()
 ### Functions
      
 def config_options():
