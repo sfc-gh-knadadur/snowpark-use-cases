@@ -1,0 +1,21 @@
+spec:
+  containers:
+    - name: multimodal
+      image: sfseeurope-us-west-ccarrero-452.registry.snowflakecomputing.com/cc_containers/stable_diffusion/image_repo/imagesimilarity:v01
+      volumeMounts:
+      - name: models
+        mountPath: /app/imagesimilarity
+      resources:
+        requests:
+          nvidia.com/gpu: 1
+        limits:
+          nvidia.com/gpu: 1
+  volumes:
+    - name: models
+      source: "@model_stage_similarity"
+  endpoints:
+    - name: jupy
+      port: 8888
+      public: true
+  networkPolicyConfig:
+      allowInternetEgress: true
