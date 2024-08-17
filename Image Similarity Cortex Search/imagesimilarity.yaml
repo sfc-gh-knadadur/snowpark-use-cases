@@ -1,7 +1,7 @@
 spec:
   containers:
     - name: multimodal
-      image: sfseeurope-us-west-ccarrero-452.registry.snowflakecomputing.com/cc_containers/stable_diffusion/image_repo/imagesimilarity:v01
+      image: <image registry url>/imagesimilarity:v01
       volumeMounts:
       - name: models
         mountPath: /app/imagesimilarity
