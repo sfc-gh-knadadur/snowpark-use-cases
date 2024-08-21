@@ -1,5 +1,5 @@
-# Running Video Impanting Multi Modal in Snowpark Container Services
-This is an art of possibility for setting up and running Video Impanting Multi Modal in inside Snowpark Conatiner Services using GPUs. Download the entire zip and run the docker commands being inside the folder path(after uzipping).
+# Generate Images in Snowpark Container Services Using Stable Diffusion Model
+This is an art of possibility for setting up and running Stable Diffusion Modal in inside Snowpark Conatiner Services using GPUs. Download the entire zip and run the docker commands being inside the folder path(after uzipping).
 
 # Setup
 
