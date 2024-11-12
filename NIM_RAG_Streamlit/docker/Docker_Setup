@@ -1,0 +1,4 @@
+docker build . -t streamlit_handler:v0.1 --platform linux/amd64;
+docker login <Snowflake Image repo url>;
+docker tag streamlit_handler:v0.1 <Snowflake Image repo url>/streamlit:v0.1;
+docker push <Snowflake Image repo url>/streamlit:v0.1

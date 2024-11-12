@@ -1,0 +1,6 @@
+streamlit==1.30.0
+nltk
+faiss-cpu==1.7.4
+langchain==0.1.20
+unstructured[all-docs]==0.11.2
+langchain-nvidia-ai-endpoints
