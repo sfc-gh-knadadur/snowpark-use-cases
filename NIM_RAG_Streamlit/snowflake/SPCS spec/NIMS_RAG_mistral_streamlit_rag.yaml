@@ -1,0 +1,27 @@
+spec:
+  containers:
+    - name: streamlit-handler
+      image: <Snowflake Image repo url>/streamlit:v0.1
+      command:
+      - bash
+      args:
+      - -c
+      - "(ttyd -p 1237 -W bash &> /tmp/ttyd.log &);(cd streamlit;. ~/streamlit_env/bin/activate;nohup streamlit run streamlit.py &> /tmp/streamlit.log &); sleep 5;tail -f /tmp/streamlit.log -f /tmp/ttyd.log "
+      env:
+        NVIDIA_API_KEY: "nvapi-APIKEY"
+    - name: sql-handler
+      image: <Snowflake Image repo url>/streamlit-handler:v0.1
+      command:
+      - bash
+      args:
+      - -c
+      - "(ttyd -p 1236 -W bash &> /tmp/ttyd.log &);(cd handler;. ~/flask_env/bin/activate;nohup flask --app nvidia_nemo run --host=0.0.0.0 &> /tmp/flask.log &); sleep 5;tail -f /tmp/flask.log -f /tmp/ttyd.log"
+  endpoint:
+  - name: streamlit
+    port: 8501
+    public: true
+  volumes:
+    - name: models
+      source: "@model_stage_rag"
+  networkPolicyConfig:
+      allowInternetEgress: true
