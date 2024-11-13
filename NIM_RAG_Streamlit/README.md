@@ -1,6 +1,6 @@
 # RAG on SNOWFLAKE SPCS and NVIDIA MICROSERVICE 
 
-This implementation is tied to the [YouTube video on NVIDIA Developer](https://youtu.be/N_OOfkEWcOk). and the repo ()
+This implementation is tied to the [YouTube video on NVIDIA Developer](https://youtu.be/N_OOfkEWcOk) and the [repo](https://github.com/NVIDIA/GenerativeAIExamples/blob/105422558ed968a4dfc4ef6cbebc673cf42a00de/community/5_mins_rag_no_gpu/README.md)
 
 This is a simple standalone implementation showing a minimal RAG pipeline that uses models available from [NVIDIA API Catalog](https://catalog.ngc.nvidia.com/ai-foundation-models).
 The catalog enables you to experience state-of-the-art LLMs accelerated by NVIDIA.
@@ -15,39 +15,16 @@ Because the example uses the models from the NVIDIA API Catalog, you do not need
 
 1. Create snowflake image repository using [setup.sql](https://github.com/sfc-gh-knadadur/snowpark-use-cases/blob/main/NIM_RAG_Streamlit/snowflake/01%20Setup.sql). Use snowflake worksheet
 
-   ```comsole
-   CREATE OR REPLACE DATABASE NVIDIA_NIMS_RAG_STREAMLIT;
 
-   CREATE OR REPLACE STAGE MODEL_STAGE_RAG ENCRYPTION = (TYPE = 'SNOWFLAKE_SSE');
+2. Update [docker steps](https://github.com/sfc-gh-knadadur/snowpark-use-cases/blob/main/NIM_RAG_Streamlit/docker/Docker_Setup) the Snowflake Image repository URL and 
 
-   CREATE COMPUTE POOL IF NOT EXISTS NVIDIA_NIMS_RAG_STREAMLIT_S
-   MIN_NODES = 1
-   MAX_NODES = 1
-   INSTANCE_FAMILY = GPU_NV_S;
 
-   DESCRIBE COMPUTE POOL NVIDIA_NIMS_RAG_STREAMLIT_S;
+3. Run [docker steps](https://github.com/sfc-gh-knadadur/snowpark-use-cases/blob/main/NIM_RAG_Streamlit/docker/Docker_Setup) to build the streamlit docker image and install the requirements: On your CLI
 
-   CREATE OR REPLACE STAGE SPECS 
-       DIRECTORY = ( ENABLE = TRUE ) 
-       ENCRYPTION = ( TYPE = 'SNOWFLAKE_SSE' );
-
-   CREATE OR REPLACE IMAGE REPOSITORY NVIDIA_NIMS_RAG_STREAMLIT_REPO;
-
-   SHOW IMAGE REPOSITORIES;
-   ```
-
-2. Run [docker steps](https://github.com/sfc-gh-knadadur/snowpark-use-cases/blob/main/NIM_RAG_Streamlit/docker/Docker_Setup) to build the streamlit docker image and install the requirements: On your CLI
-
-   ```console
-   docker build . -t streamlit_handler:v0.1 --platform linux/amd64;
-   docker login <Snowflake Image repo url>;
-   docker tag streamlit_handler:v0.1 <Snowflake Image repo url>/streamlit:v0.1;
-   docker push <Snowflake Image repo url>/streamlit:v0.1 ```
-   ```
 
    If you don't already have an API key, visit the [NVIDIA API Catalog](https://build.ngc.nvidia.com/explore/), select on any model, then click on `Get API Key`.
 
-3. Update the API Key in the [SPCS spec yaml](https://github.com/sfc-gh-knadadur/snowpark-use-cases/tree/main/NIM_RAG_Streamlit/snowflake/SPCS%20spec)
+3. Update the API Key in the [SPCS spec yaml](https://github.com/sfc-gh-knadadur/snowpark-use-cases/blob/main/NIM_RAG_Streamlit/snowflake/SPCS%20spec/NIMS_RAG_mistral_streamlit_rag.yaml)
 
    ```console
          env:
@@ -57,27 +34,6 @@ Because the example uses the models from the NVIDIA API Catalog, you do not need
 4.  Upload the yaml file to snowflake stage SPEC (created in step 1)
 
 5. [Create Service and validate ](https://github.com/sfc-gh-knadadur/snowpark-use-cases/blob/main/NIM_RAG_Streamlit/snowflake/02%20Create_Service.sql)
-
-   ```console
-   SHOW IMAGES IN IMAGE REPOSITORY NVIDIA_NIMS_RAG_STREAMLIT_REPO;
-
-   DROP SERVICE IF EXISTS NIMS_RAG_MISTRAL_STREAMLIT_RAG;
-
-   DESCRIBE COMPUTE POOL NVIDIA_NIMS_RAG_STREAMLIT_S;
-   ALTER COMPUTE POOL NVIDIA_NIMS_RAG_STREAMLIT_S RESUME;
-
-   CREATE SERVICE NIMS_RAG_MISTRAL_STREAMLIT_RAG
-       IN COMPUTE POOL NVIDIA_NIMS_RAG_STREAMLIT_S
-       FROM @SPECS
-       SPECIFICATION_FILE='NIMS_RAG_mistral_streamlit_rag.YAML'
-       EXTERNAL_ACCESS_INTEGRATIONS = (ALLOW_ALL_EAI);
-
-   SELECT SYSTEM$GET_SERVICE_STATUS('NIMS_RAG_MISTRAL_STREAMLIT_RAG');
-
-   CALL SYSTEM$GET_SERVICE_LOGS('NIMS_RAG_MISTRAL_STREAMLIT_RAG', '0', 'streamlit-handler');
-
-   SHOW ENDPOINTS IN SERVICE NIMS_RAG_MISTRAL_STREAMLIT_RAG;   
-   ```
 
 
 6. Test the deployed example by going to `ingress url` from the endpoint in a web browser.
