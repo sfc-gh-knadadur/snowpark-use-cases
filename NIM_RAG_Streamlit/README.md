@@ -13,7 +13,7 @@ Because the example uses the models from the NVIDIA API Catalog, you do not need
 
 ### Steps to implement NVIDIA RAG on SPCS
 
-1. Create snowflake image repository using [setup.sql] (https://github.com/sfc-gh-knadadur/snowpark-use-cases/blob/main/NIM_RAG_Streamlit/snowflake/01%20Setup.sql). Use snowflake worksheet
+1. Create snowflake image repository using [setup.sql](https://github.com/sfc-gh-knadadur/snowpark-use-cases/blob/main/NIM_RAG_Streamlit/snowflake/01%20Setup.sql). Use snowflake worksheet
 
    ```comsole
    CREATE OR REPLACE DATABASE NVIDIA_NIMS_RAG_STREAMLIT;
@@ -36,7 +36,7 @@ Because the example uses the models from the NVIDIA API Catalog, you do not need
    SHOW IMAGE REPOSITORIES;
    ```
 
-2. Run [docker steps] (https://github.com/sfc-gh-knadadur/snowpark-use-cases/blob/main/NIM_RAG_Streamlit/docker/Docker_Setup) to build the streamlit docker image and install the requirements: On your CLI
+2. Run [docker steps](https://github.com/sfc-gh-knadadur/snowpark-use-cases/blob/main/NIM_RAG_Streamlit/docker/Docker_Setup) to build the streamlit docker image and install the requirements: On your CLI
 
    ```console
    docker build . -t streamlit_handler:v0.1 --platform linux/amd64;
@@ -47,7 +47,7 @@ Because the example uses the models from the NVIDIA API Catalog, you do not need
 
    If you don't already have an API key, visit the [NVIDIA API Catalog](https://build.ngc.nvidia.com/explore/), select on any model, then click on `Get API Key`.
 
-3. Update the API Key in the [SPCS spec yaml] (https://github.com/sfc-gh-knadadur/snowpark-use-cases/tree/main/NIM_RAG_Streamlit/snowflake/SPCS%20spec)
+3. Update the API Key in the [SPCS spec yaml](https://github.com/sfc-gh-knadadur/snowpark-use-cases/tree/main/NIM_RAG_Streamlit/snowflake/SPCS%20spec)
 
    ```console
          env:
@@ -56,7 +56,7 @@ Because the example uses the models from the NVIDIA API Catalog, you do not need
 
 4.  Upload the yaml file to snowflake stage SPEC (created in step 1)
 
-5. [Create Service and validate ] (https://github.com/sfc-gh-knadadur/snowpark-use-cases/blob/main/NIM_RAG_Streamlit/snowflake/02%20Create_Service.sql)
+5. [Create Service and validate ](https://github.com/sfc-gh-knadadur/snowpark-use-cases/blob/main/NIM_RAG_Streamlit/snowflake/02%20Create_Service.sql)
 
    ```console
    SHOW IMAGES IN IMAGE REPOSITORY NVIDIA_NIMS_RAG_STREAMLIT_REPO;
